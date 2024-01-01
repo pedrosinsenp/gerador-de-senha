@@ -2,6 +2,8 @@ from time import sleep
 from random import choice
 from defs import funcoes
 from time import sleep
+import urllib.request
+from webbrowser import open
 
 funcoes.titulo()
 
@@ -11,8 +13,15 @@ while True:
     escolha_usuario_gerar_senhas = funcoes.verificar_num('\nQual sua opção?\033[92m ', 4)
 
     senha = ''
+    verificar_especial = verificar_upper = verificar_lower = verificar_num = 0
+
+    let_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let_lower = 'abcdefghijklmnopqrstuvwxyz'
+    num = '1234567890'
+    especial = '#$%&?@'
+    
     if escolha_usuario_gerar_senhas == 1:
-        senha_carac = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 'abcdefghijklmnopqrstuvwxyz'
+        senha_carac = let_upper + let_lower
         tamanho_senha = funcoes.verificar_num('\033[mQual o tamanho da senha?\033[92m ', senha=True)
         
         while True:
@@ -20,16 +29,15 @@ while True:
                 escolha = choice(senha_carac)
                 senha += escolha
                 if escolha.isupper():
-                    verificar_maiu = 1
+                    verificar_upper = 1
                 if escolha.islower():
-                    verificar_minu = 1
+                    verificar_lower = 1
                     
-            if verificar_minu and verificar_maiu == 1:
+            if verificar_lower and verificar_upper == 1:
                 break
             else:
                 senha = ''
-                verificar_minu = 0
-                verificar_maiu = 0
+                verificar_lower = verificar_upper = 0
 
         print('\033[3;93mGerando senha...\033[m')
         sleep(0.8)
@@ -44,7 +52,7 @@ while True:
             continue
 
     elif escolha_usuario_gerar_senhas == 2:
-        senha_carac = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 'abcdefghijklmnopqrstuvwxyz' + '1234567890'
+        senha_carac = let_upper + let_lower + num
         tamanho_senha = funcoes.verificar_num('\033[mQual o tamanho da senha?\033[92m ', senha=True)
 
         while True:
@@ -54,17 +62,15 @@ while True:
                 if escolha.isnumeric():
                     verificar_num = 1
                 if escolha.isupper():
-                    verificar_maiu = 1
+                    verificar_upper = 1
                 if escolha.islower():
-                    verificar_minu = 1
+                    verificar_lower = 1
 
-            if verificar_minu == 1 and verificar_maiu == 1 and verificar_num == 1:
+            if verificar_lower and verificar_upper and verificar_num == 1:
                 break
             else:
                 senha = ''
-                verificar_minu = 0
-                verificar_maiu = 0
-                verificar_num = 0
+                verificar_lower = verificar_upper = verificar_num = 0
 
         print('\033[3;93mGerando senha...\033[m')
         sleep(0.8)
@@ -79,7 +85,7 @@ while True:
             continue
     
     elif escolha_usuario_gerar_senhas == 3:
-        senha_carac = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 'abcdefghijklmnopqrstuvwxyz' + '1234567890' + '!#$%&*/?@\_'
+        senha_carac = let_upper + let_lower + num + especial
         tamanho_senha = funcoes.verificar_num('\033[mQual o tamanho da senha?\033[92m ', senha=True)
 
         while True:
@@ -89,20 +95,17 @@ while True:
                 if escolha.isnumeric():
                     verificar_num = 1
                 if escolha.isupper():
-                    verificar_maiu = 1
+                    verificar_upper = 1
                 if escolha.islower():
-                    verificar_minu = 1
+                    verificar_lower = 1
                 if escolha in '!#$&@':
-                    verificar_carac = 1
+                    verificar_especial = 1
                     
-            if verificar_minu == 1 and verificar_carac == 1 and verificar_maiu == 1 and verificar_num == 1:
+            if verificar_num and verificar_upper and verificar_lower and verificar_especial == 1:
                 break
             else:
                 senha = ''
-                verificar_carac = 0
-                verificar_minu = 0
-                verificar_maiu = 0
-                verificar_num = 0
+                verificar_especial = verificar_lower = verificar_upper = verificar_num = 0
 
         print('\033[3;93mGerando senha...\033[m')
         sleep(0.8)
@@ -121,4 +124,15 @@ while True:
 
 funcoes.finalizar()
 
-print('\033[3;93mPrograma finalizado. Volte Sempre!\033[m')
+print('\n\033[mObrigado por ultilizar este programa.\033[3;94m Volte Sempre!')
+print('https://github.com/pedrosinsenp\033[m')
+print('Para contato >> \033[3;94mpedrosinsenp@gmail.com\033[m')
+
+funcoes.tempo()
+
+try:
+    urllib.request.urlopen('https://github.com/pedrosinsenp')
+except:
+    print('Acessa lá meu github!')
+else:
+    open('https://github.com/pedrosinsenp')

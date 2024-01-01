@@ -1,4 +1,20 @@
 from time import sleep
+import urllib.request
+from datetime import datetime
+
+def interromper():
+    print('\033[3;91mO usuário preferiu finalizar o programa.\033[m')
+    print('\n\033[mObrigado por ultilizar este programa.\033[3;94m Volte Sempre!')
+    print('https://github.com/pedrosinsenp\033[m')
+    tempo()
+    try:
+        urllib.request.urlopen('https://github.com/pedrosinsenp')
+    except:
+        print('Acessa lá meu github!')
+    else:
+        open('https://github.com/pedrosinsenp')
+    sleep(0.8)
+    exit()
 
 def verificar_num(msg, num=0, senha=False):
     """
@@ -21,28 +37,21 @@ def verificar_num(msg, num=0, senha=False):
                 if a < 8:
                     print(f'\033[91mPara sua segurança, escolha uma senha com 8 ou mais caracteres.\033[m')
                     continue
-            elif num == 0:
+            else:
                 if a == 0:
                     print(f'\033[91mERRO! \033[3mDigite um número maior que 0\033[m')
                     continue
-            else:
                 if a > num:
                     print(f'\033[91mERRO! \033[3mDigite um número menor que {num + 1}\033[m')
-                    continue
-                elif a == 0:
-                    print(f'\033[91mERRO! \033[3mDigite um número maior que 0\033[m')
                     continue
         except (TypeError, ValueError):
             if '.' in a:
                 print(f'\033[91mERRO! \033[3mDigite um valor inteiro.\033[m')
-                continue
             else:
                 print(f'\033[91mERRO! \033[3m"{a}" não é válido.\033[m')
-                continue
+            continue
         except KeyboardInterrupt:
-            print('\033[3;91mO usuário preferiu finalizar o programa.\033[m')
-            sleep(0.8)
-            exit()
+            interromper()
         else:
             return a
         
@@ -67,9 +76,7 @@ def continuar_def(msg='<desconhecido>', pular=False):
                 print(f'\033[91mERRO! \033[3m"{continuar}" não é válido.\033[m')
                 continue
         except KeyboardInterrupt:
-            print('\033[3;91mO usuário preferiu finalizar o programa.\033[m')
-            sleep(0.8)
-            exit()
+            interromper()
         else:
             return continuar
         
@@ -93,3 +100,31 @@ def titulo():
 def menu(*n):
     for i, c in enumerate(n):
         print(f'\033[94m{f"[ {i + 1} ]":>9}\033[m - \033[3m{c}\033[m')
+
+def tempo():
+    if len(str(datetime.now().hour)) == 1:
+        print(f'0{datetime.now().hour}', end=':')
+    else:
+        print(f'{datetime.now().hour}', end=':')
+
+    if len(str(datetime.now().minute)) == 1:
+        print(f'0{datetime.now().minute}', end=':')
+    else:
+        print(f'{datetime.now().minute}', end=':')
+
+    if len(str(datetime.now().second)) == 1:
+        print(f'0{datetime.now().second}', end=' ')
+    else:
+        print(f'{datetime.now().second}', end=' ')
+
+    if len(str(datetime.now().day)) == 1:
+        print(f'0{datetime.now().day}', end='/')
+    else:
+        print(f'{datetime.now().day}', end='/')
+
+    if len(str(datetime.now().month)) == 1:
+        print(f'0{datetime.now().month}', end='/')
+    else:
+        print(f'{datetime.now().month}', end='/')
+
+    print(datetime.now().year)
